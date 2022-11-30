@@ -1,0 +1,22 @@
+.cardBodyTitle {
+    color: #ffffff;
+    font-family: "Arial";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 150%;
+}
+
+.cardBodyDesc {
+    color: #ffffff;
+    font-family: "Arial";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.cardBody {
+    background-color: #0d28a6;
+    border-radius: 13px;
+}

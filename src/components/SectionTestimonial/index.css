@@ -1,0 +1,24 @@
+.testimonyTitle {
+    font-family: "Arial";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 36px;
+}
+
+.testimonyDesc {
+    font-family: "Arial";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.testimonyContent {
+    display: flex;
+    flex-direction: column;
+}
+
+.testimonyContent img {
+    width: 80px;
+}

@@ -3,7 +3,7 @@ import React from "react";
 import "./index.css";
 import img_service from "../../assets/images/img_service.png";
 
-const SectionServices = () => {
+const SectionOurServices = () => {
     return (
         <>
             <div id="ourServices">
@@ -51,4 +51,4 @@ const SectionServices = () => {
     );
 };
 
-export default SectionServices;
+export default SectionOurServices;

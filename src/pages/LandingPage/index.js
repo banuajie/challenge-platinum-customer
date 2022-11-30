@@ -1,9 +1,9 @@
 import React from "react";
 import SectionCTABanner from "../../components/SectionCTABanner";
-import SectionFaq from "../../components/SectionFaq";
+import SectionFAQ from "../../components/SectionFAQ";
 import SectionHero from "../../components/SectionHero";
-import SectionNavigationBar from "../../components/SectionNavigationBar";
-import SectionServices from "../../components/SectionServices";
+import SectionNavBar from "../../components/SectionNavBar";
+import SectionOurServices from "../../components/SectionOurServices";
 import SectionTestimonial from "../../components/SectionTestimonial";
 import SectionWhyUs from "../../components/SectionWhyUs";
 import SectionFooter from "../../components/SectionFooter";
@@ -11,13 +11,13 @@ import SectionFooter from "../../components/SectionFooter";
 const LandingPage = () => {
     return (
         <div>
-            <SectionNavigationBar />
+            <SectionNavBar />
             <SectionHero />
-            <SectionServices />
+            <SectionOurServices />
             <SectionWhyUs />
             <SectionTestimonial />
             <SectionCTABanner />
-            <SectionFaq />
+            <SectionFAQ />
             <SectionFooter />
         </div>
     );
