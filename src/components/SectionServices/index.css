@@ -1,0 +1,38 @@
+.ourServicesImage {
+    width: auto;
+    height: auto;
+}
+
+.ourServicesTitle {
+    font-family: "Arial";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 36px;
+}
+
+.ourServicesDesc {
+    font-family: "Arial";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.ourServicesList {
+    list-style-image: url(../../assets/images/icon_list.png);
+}
+
+.ourServicesList li {
+    font-family: "Arial";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+@media screen and (max-width: 768px) {
+    .ourServicesImage {
+        width: 100%;
+    }
+}
