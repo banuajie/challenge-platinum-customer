@@ -1,0 +1,42 @@
+#filter-cars {
+    margin-top: -55px;
+}
+
+.filter-cars {
+    border: grey;
+    border-radius: 10px;
+}
+
+.car-image {
+    width: auto;
+    height: 230px;
+}
+
+.car-name {
+    font-family: Arial;
+    font-size: 14px;
+}
+
+.car-price {
+    font-family: Arial;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.car-desc {
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.text-loading {
+    font-family: Arial;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.text-error {
+    font-family: Arial;
+    font-size: 36px;
+    font-weight: bold;
+}

@@ -1,0 +1,14 @@
+.our-services-title {
+    font-family: Arial;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.our-services-desc {
+    font-family: Arial;
+    font-size: 14px;
+}
+
+.services-list-item > img {
+    margin-right: 10px;
+}

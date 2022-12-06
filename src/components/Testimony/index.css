@@ -1,0 +1,48 @@
+.testimony-title {
+    font-family: Arial;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.testimony-desc {
+    font-family: Arial;
+    font-size: 14px;
+}
+
+.testimony-item-content {
+    background-color: #f1f3ff;
+    border-radius: 8px;
+    height: auto;
+}
+
+.button-prev {
+    background-image: url("../../assets/images/icon_prev_button.png");
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+}
+
+.button-prev:hover {
+    background-image: url("../../assets/images/icon_prev_button_hover.png");
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+}
+
+.button-next {
+    background-image: url("../../assets/images/icon_next_button.png");
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+}
+
+.button-next:hover {
+    background-image: url("../../assets/images/icon_next_button_hover.png");
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+}

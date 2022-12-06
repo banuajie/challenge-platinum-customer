@@ -1,0 +1,14 @@
+#hero-section {
+    background-image: url("../../assets/images/bg_hero_section.png");
+}
+
+.hero-title {
+    font-family: Arial;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.hero-desc {
+    font-family: Arial;
+    font-size: 14px;
+}

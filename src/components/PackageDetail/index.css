@@ -1,0 +1,30 @@
+.top-rectangle {
+    background-color: #f1f3ff;
+    height: 180px;
+}
+
+.form-package-detail {
+    border: gray;
+    border-radius: 10px;
+}
+
+.form-content {
+    margin-top: -70px;
+}
+
+.form-about-package {
+    border: gray;
+    border-radius: 10px;
+}
+
+.form-select-date {
+    border: gray;
+    border-radius: 10px;
+}
+
+.category-info {
+    font-family: Arial;
+    font-size: 10px;
+    font-weight: bold;
+    color: #8a8a8a;
+}

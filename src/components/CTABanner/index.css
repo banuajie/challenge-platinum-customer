@@ -1,0 +1,15 @@
+.cta-content {
+    background-color: #0d28a6;
+    border-radius: 13px;
+}
+
+.cta-title {
+    font-family: "Arial";
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.cta-desc {
+    font-family: "Arial";
+    font-size: 14px;
+}
