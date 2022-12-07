@@ -20,8 +20,8 @@ const PackageDetail = () => {
             key: "selection",
         },
     ]);
-    const [jumlahHari, setJumlahHari] = useState(0);
-    const [hargaSewa, setHargaSewa] = useState(0);
+    const [numberOfDays, setNumberOfDays] = useState(0);
+    const [rentalPrice, setRentalPrice] = useState(0);
 
     const handleTanggal = () => {
         setSelectionRange([
@@ -31,39 +31,38 @@ const PackageDetail = () => {
                 key: "selection",
             },
         ]);
-        setHargaSewa(0);
-        setJumlahHari(0);
+        setRentalPrice(0);
+        setNumberOfDays(0);
     };
 
     useEffect(() => {
         if (selectionRange[0].endDate && selectionRange[0].startDate) {
             //kalau udah select tanggal
-            const totalHari = (selectionRange[0].endDate - selectionRange[0].startDate) / 86400000 + 1; //hitung jumlah hari
+            const totalDays = (selectionRange[0].endDate - selectionRange[0].startDate) / 86400000 + 1; //hitung jumlah hari
             if (selectionRange[0].startDate < new Date()) {
                 window.alert("Tanggal yang Anda pilih tidak sesuai!");
                 handleTanggal();
-            } else if (totalHari > 7) {
-                // jika lebih dari 7 hari user akan pilih ulang
-                // when user select more than 7 day /reselect date when
+            } else if (totalDays > 7) {
+                // when user select more than 7 day will be reselect date
                 handleTanggal();
                 window.alert("Batas sewa maksimal 7 Hari");
             } else {
                 // calculates number of days based on the selected date.
-                setJumlahHari(totalHari);
+                setNumberOfDays(totalDays);
                 // price result
-                setHargaSewa(carDetailResult.price * jumlahHari);
+                setRentalPrice(carDetailResult.price * numberOfDays);
             }
         }
-    }, [selectionRange, jumlahHari, carDetailResult]);
+    }, [selectionRange, numberOfDays, carDetailResult]);
 
-    const handleBayar = (event) => {
+    const handlePayment = (event) => {
         event.preventDefault();
 
         const sendData = {
             start_rent_at: selectionRange[0].startDate, // start date
             finish_rent_at: selectionRange[0].endDate, // end date
-            jumlah_hari_sewa: jumlahHari, // total date
-            harga_sewa_total: hargaSewa, // total rental price
+            jumlah_hari_sewa: numberOfDays, // number of days
+            harga_sewa_total: rentalPrice, // total rental price
             harga_sewa_harian: carDetailResult.price, // daily rental price
             car_id: carDetailResult.id, // car id
             nama_mobil: carDetailResult.name, // car name
@@ -178,12 +177,12 @@ const PackageDetail = () => {
                                         <p className="fs-5 fw-bold text-start my-auto">Total</p>
                                     </div>
                                     <div className="col">
-                                        <p className="fs-5 fw-bold text-end my-auto">Rp {hargaSewa}</p>
+                                        <p className="fs-5 fw-bold text-end my-auto">Rp {rentalPrice}</p>
                                     </div>
                                 </div>
                                 <div className="row p-3">
                                     <div className="col">
-                                        <button className="btn btn-success w-100" disabled={jumlahHari ? false : true} onClick={handleBayar}>
+                                        <button className="btn btn-success w-100" disabled={numberOfDays ? false : true} onClick={handlePayment}>
                                             Lanjutkan Pembayaran
                                         </button>
                                     </div>
