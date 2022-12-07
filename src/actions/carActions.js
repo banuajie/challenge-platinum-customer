@@ -3,6 +3,7 @@ import axios from "axios";
 export const GET_ALL_CARS = "GET_ALL_CARS";
 export const FILTER_CARS = "FILTER_CARS";
 export const CAR_DETAIL = "CAR_DETAIL";
+export const ADD_ORDER = "ADD_ORDER";
 
 export const getAllCars = () => {
     return (dispatch) => {

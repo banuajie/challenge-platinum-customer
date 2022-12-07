@@ -1,16 +1,20 @@
 import "./index.css";
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { DateRange } from "react-date-range";
-import { useNavigate } from "react-router";
-import icon_user from "../../assets/images/icon_users.png";
-
 // main style file and theme css file for "DateRange"
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { DateRange } from "react-date-range";
+import { useNavigate } from "react-router";
+import icon_user from "../../assets/images/icon_users.png";
+
+import { Link } from "react-router-dom";
+import { addOrder } from "../../actions/orderAction";
+
 const PackageDetail = () => {
     const { carDetailResult } = useSelector((state) => state.CarReducer);
+    const dispatch = useDispatch();
 
     const navigate = useNavigate();
     const [selectionRange, setSelectionRange] = useState([
@@ -21,7 +25,7 @@ const PackageDetail = () => {
         },
     ]);
     const [numberOfDays, setNumberOfDays] = useState(0);
-    const [rentalPrice, setRentalPrice] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0);
 
     const handleTanggal = () => {
         setSelectionRange([
@@ -31,7 +35,7 @@ const PackageDetail = () => {
                 key: "selection",
             },
         ]);
-        setRentalPrice(0);
+        setTotalPrice(0);
         setNumberOfDays(0);
     };
 
@@ -50,7 +54,7 @@ const PackageDetail = () => {
                 // calculates number of days based on the selected date.
                 setNumberOfDays(totalDays);
                 // price result
-                setRentalPrice(carDetailResult.price * numberOfDays);
+                setTotalPrice(carDetailResult.price * numberOfDays);
             }
         }
     }, [selectionRange, numberOfDays, carDetailResult]);
@@ -58,19 +62,23 @@ const PackageDetail = () => {
     const handlePayment = (event) => {
         event.preventDefault();
 
-        const sendData = {
-            start_rent_at: selectionRange[0].startDate, // start date
-            finish_rent_at: selectionRange[0].endDate, // end date
-            jumlah_hari_sewa: numberOfDays, // number of days
-            harga_sewa_total: rentalPrice, // total rental price
-            harga_sewa_harian: carDetailResult.price, // daily rental price
-            car_id: carDetailResult.id, // car id
-            nama_mobil: carDetailResult.name, // car name
-            kategori_mobil: carDetailResult.category, // car category
+        // // post data to order API
+        dispatch(addOrder({ start_rent_at: selectionRange[0].startDate, finish_rent_at: selectionRange[0].endDate, car_id: carDetailResult.id }));
+
+        const setSessionCarDetail = {
+            // start_rent_at: selectionRange[0].startDate, // start date
+            // finish_rent_at: selectionRange[0].endDate, // end date
+            // car_id: carDetailResult.id, // car id
+            number_of_days: numberOfDays, // number of days
+            total_price: totalPrice, // total rental price
+            // price: carDetailResult.price, // daily rental price
+            // name: carDetailResult.name, // car name
+            // category: carDetailResult.category, // car category
         };
 
         // save to session storage, "key" and "value"
-        window.sessionStorage.setItem("LastOrder", JSON.stringify(sendData));
+        // window.sessionStorage.setItem("LastOrder", JSON.stringify(sendData));
+        window.sessionStorage.setItem("SessionCarDetail", JSON.stringify(setSessionCarDetail));
         navigate("/payment");
     };
 
@@ -177,14 +185,16 @@ const PackageDetail = () => {
                                         <p className="fs-5 fw-bold text-start my-auto">Total</p>
                                     </div>
                                     <div className="col">
-                                        <p className="fs-5 fw-bold text-end my-auto">Rp {rentalPrice}</p>
+                                        <p className="fs-5 fw-bold text-end my-auto">Rp {totalPrice}</p>
                                     </div>
                                 </div>
                                 <div className="row p-3">
                                     <div className="col">
-                                        <button className="btn btn-success w-100" disabled={numberOfDays ? false : true} onClick={handlePayment}>
-                                            Lanjutkan Pembayaran
-                                        </button>
+                                        <Link to="/payment">
+                                            <button className="btn btn-success w-100" disabled={numberOfDays ? false : true} onClick={(event) => handlePayment(event)}>
+                                                Lanjutkan Pembayaran
+                                            </button>
+                                        </Link>
                                     </div>
                                 </div>
                             </form>
