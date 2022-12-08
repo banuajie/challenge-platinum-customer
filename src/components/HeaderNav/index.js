@@ -1,8 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
 
 const HeaderNav = () => {
+    const location = useLocation();
+
+    const token = window.localStorage.getItem("Token");
+
     return (
         <>
             <nav className="navbar navbar-expand-lg sticky-top" style={{ backgroundColor: "#F1F3FF" }}>
@@ -38,9 +42,25 @@ const HeaderNav = () => {
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <Link to="/signin">
-                                    <button className="btn btn-success">Register</button>
-                                </Link>
+                                {!token && (
+                                    <Link to="/signin" state={location.pathname}>
+                                        <button className="btn btn-success">Register</button>
+                                    </Link>
+                                )}
+
+                                {location.pathname !== "/payment" && token && (
+                                    <Link to=".">
+                                        <button className="btn btn-success" onClick={() => window.localStorage.removeItem("Token")}>
+                                            Logout
+                                        </button>
+                                    </Link>
+                                )}
+
+                                {location.pathname === "/payment" && token && (
+                                    <button className="btn btn-success" disabled>
+                                        Logout
+                                    </button>
+                                )}
                             </li>
                         </ul>
                     </div>

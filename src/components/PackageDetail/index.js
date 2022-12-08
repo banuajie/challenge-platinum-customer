@@ -41,8 +41,9 @@ const PackageDetail = () => {
 
     useEffect(() => {
         if (selectionRange[0].endDate && selectionRange[0].startDate) {
-            //kalau udah select tanggal
-            const totalDays = (selectionRange[0].endDate - selectionRange[0].startDate) / 86400000 + 1; //hitung jumlah hari
+            // if you have chosen a date
+            const totalDays = (selectionRange[0].endDate - selectionRange[0].startDate) / 86400000 + 1; // count number of days
+
             if (selectionRange[0].startDate < new Date()) {
                 window.alert("Tanggal yang Anda pilih tidak sesuai!");
                 handleDate();
@@ -58,6 +59,12 @@ const PackageDetail = () => {
             }
         }
     }, [selectionRange, numberOfDays, carDetailResult]);
+
+    // const tanggalAwal = selectionRange[0].startDate;
+    // const tanggaAkhir = selectionRange[0].endDate;
+
+    // console.log(tanggalAwal);
+    // console.log(tanggaAkhir);
 
     const handlePayment = (event) => {
         event.preventDefault();

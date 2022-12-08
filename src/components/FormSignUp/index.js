@@ -31,7 +31,7 @@ const FormSignUp = () => {
                                         <input type="password" className="form-control" placeholder="6+ karakter" />
                                     </div>
 
-                                    <button type="submit" className="btn btn-primary w-100 text-white mb-4">
+                                    <button type="submit" className="btn-signup btn btn-primary w-100 text-white mb-4">
                                         Sign Up
                                     </button>
 

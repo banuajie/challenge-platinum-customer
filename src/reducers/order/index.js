@@ -1,4 +1,4 @@
-import { ADD_ORDER } from "../../actions/carActions";
+import { ADD_ORDER } from "../../actions/orderAction";
 
 const initialState = {
     addOrderLoading: false,

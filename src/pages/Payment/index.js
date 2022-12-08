@@ -11,11 +11,8 @@ const Payment = () => {
         event.preventDefault();
 
         console.log("ini carDetailResult", carDetailResult);
+        console.log("ini addOrderResult", addOrderResult);
         console.log("ini getSessionCarDetail", getSessionCarDetail);
-
-        if (addOrderResult) {
-            console.log("ini addOrderResult", addOrderResult);
-        }
     };
 
     return (
