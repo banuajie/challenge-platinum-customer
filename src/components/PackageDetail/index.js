@@ -1,22 +1,21 @@
 import "./index.css";
+
 // main style file and theme css file for "DateRange"
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { DateRange } from "react-date-range";
 import { useNavigate } from "react-router";
 import icon_user from "../../assets/images/icon_users.png";
 
 import { Link } from "react-router-dom";
-import { addOrder } from "../../actions/orderAction";
 
 const PackageDetail = () => {
     const { carDetailResult } = useSelector((state) => state.CarReducer);
-    const dispatch = useDispatch();
-
     const navigate = useNavigate();
+
     const [selectionRange, setSelectionRange] = useState([
         {
             startDate: null,
@@ -60,21 +59,15 @@ const PackageDetail = () => {
         }
     }, [selectionRange, numberOfDays, carDetailResult]);
 
-    // const tanggalAwal = selectionRange[0].startDate;
-    // const tanggaAkhir = selectionRange[0].endDate;
-
-    // console.log(tanggalAwal);
-    // console.log(tanggaAkhir);
-
     const handlePayment = (event) => {
         event.preventDefault();
 
         // // post data to order API
-        dispatch(addOrder({ start_rent_at: selectionRange[0].startDate, finish_rent_at: selectionRange[0].endDate, car_id: carDetailResult.id }));
+        // dispatch(addOrder({ start_rent_at: selectionRange[0].startDate, finish_rent_at: selectionRange[0].endDate, car_id: carDetailResult.id }));
 
         const setSessionCarDetail = {
-            // start_rent_at: selectionRange[0].startDate, // start date
-            // finish_rent_at: selectionRange[0].endDate, // end date
+            start_rent_at: selectionRange[0].startDate, // start date
+            finish_rent_at: selectionRange[0].endDate, // end date
             // car_id: carDetailResult.id, // car id
             number_of_days: numberOfDays, // number of days
             total_price: totalPrice, // total rental price
@@ -198,7 +191,7 @@ const PackageDetail = () => {
                                 <div className="row p-3">
                                     <div className="col">
                                         <Link to="/payment">
-                                            <button className="btn btn-success w-100" disabled={numberOfDays ? false : true} onClick={(event) => handlePayment(event)}>
+                                            <button type="submit" className="btn btn-success w-100" disabled={numberOfDays ? false : true} onClick={(event) => handlePayment(event)}>
                                                 Lanjutkan Pembayaran
                                             </button>
                                         </Link>

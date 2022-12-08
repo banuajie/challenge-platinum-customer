@@ -8,7 +8,7 @@ import validator from "validator";
 import RegisterError from "../RegisterError";
 
 const FormSignIn = () => {
-    const getSessionCarDetail = JSON.parse(window.sessionStorage.getItem("SessionCarDetail"));
+    const getSessionCarDetail = window.sessionStorage.getItem("SessionCarDetail");
     const location = useLocation();
     const navigate = useNavigate();
 

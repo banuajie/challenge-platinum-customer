@@ -4,15 +4,12 @@ import HeaderNav from "../../components/HeaderNav";
 
 const Payment = () => {
     const { carDetailResult } = useSelector((state) => state.CarReducer);
-    const { addOrderResult } = useSelector((state) => state.OrderReducer);
-
     const getSessionCarDetail = JSON.parse(window.sessionStorage.getItem("SessionCarDetail"));
 
     const handleClick = (event) => {
         event.preventDefault();
 
         console.log("ini carDetailResult", carDetailResult);
-        console.log("ini addOrderResult", addOrderResult);
         console.log("ini getSessionCarDetail", getSessionCarDetail);
     };
 
