@@ -1,17 +1,14 @@
 import "./index.css";
+import axios from "axios";
 import React, { useState } from "react";
 import img_rectangle_register from "../../assets/images/img_rectangle_register.png";
 import img_register from "../../assets/images/img_register.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import validator from "validator";
-import { useDispatch, useSelector } from "react-redux";
-import { postLogin } from "../../actions/signinAction";
-import { Alert } from "bootstrap";
+import RegisterError from "../RegisterError";
 
 const FormSignIn = () => {
-    const dispatch = useDispatch();
     const getSessionCarDetail = JSON.parse(window.sessionStorage.getItem("SessionCarDetail"));
-    const { postLoginResult } = useSelector((state) => state.SignInReducer);
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -19,18 +16,32 @@ const FormSignIn = () => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
-    const signIn = () => {
-        dispatch(postLogin({ email: email, password: password }));
-        window.localStorage.setItem("Token", postLoginResult.access_token);
+    async function signIn() {
+        const signinData = {
+            email: email,
+            password: password,
+        };
 
-        const token = postLoginResult.access_token;
+        try {
+            const response = await axios({
+                method: "POST",
+                url: "https://bootcamp-rent-cars.herokuapp.com/customer/auth/login",
+                data: signinData,
+            });
 
-        if (location.state && getSessionCarDetail && token) {
-            navigate(location.state);
-        } else {
-            navigate("/");
+            window.localStorage.setItem("Token", response.data.access_token);
+
+            const token = response.data.access_token;
+
+            if (location.state && getSessionCarDetail && token) {
+                navigate(location.state);
+            } else {
+                navigate("/");
+            }
+        } catch (error) {
+            setError(error.response.data.message);
         }
-    };
+    }
 
     const handleSignIn = (event) => {
         event.preventDefault();
@@ -51,14 +62,10 @@ const FormSignIn = () => {
                     <div className="row">
                         <div className="col">
                             <div className="row content-signin h-100 d-flex flex-column align-items-center justify-content-center">
-                                <form className="w-75">
+                                <form className="w-75" onSubmit={(event) => handleSignIn(event)}>
                                     <img src={img_rectangle_register} alt="Rectangle Register" className="mb-4" />
                                     <p className="signin-title">Welcome Back!</p>
-                                    {error && (
-                                        <Alert className="bg-danger" onClose={() => setError("")}>
-                                            {error}
-                                        </Alert>
-                                    )}
+                                    {error && <RegisterError message={error} setError={setError} />}
 
                                     <div className="mb-3">
                                         <label className="label-email form-label">Email</label>
@@ -86,7 +93,7 @@ const FormSignIn = () => {
                                         />
                                     </div>
 
-                                    <button type="submit" className="btn-signin btn btn-primary w-100 text-white mb-4" onClick={(event) => handleSignIn(event)}>
+                                    <button type="submit" className="btn-signin btn btn-primary w-100 text-white mb-4">
                                         Sign In
                                     </button>
 
