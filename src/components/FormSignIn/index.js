@@ -1,10 +1,13 @@
 import "./index.css";
-import React from "react";
+import React, { useState } from "react";
 import img_rectangle_register from "../../assets/images/img_rectangle_register.png";
 import img_register from "../../assets/images/img_register.png";
 import { Link } from "react-router-dom";
 
 const FormSignIn = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
     return (
         <>
             <section id="form-signin">

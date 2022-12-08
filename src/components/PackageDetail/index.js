@@ -27,7 +27,7 @@ const PackageDetail = () => {
     const [numberOfDays, setNumberOfDays] = useState(0);
     const [totalPrice, setTotalPrice] = useState(0);
 
-    const handleTanggal = () => {
+    const handleDate = () => {
         setSelectionRange([
             {
                 startDate: null,
@@ -45,10 +45,10 @@ const PackageDetail = () => {
             const totalDays = (selectionRange[0].endDate - selectionRange[0].startDate) / 86400000 + 1; //hitung jumlah hari
             if (selectionRange[0].startDate < new Date()) {
                 window.alert("Tanggal yang Anda pilih tidak sesuai!");
-                handleTanggal();
+                handleDate();
             } else if (totalDays > 7) {
                 // when user select more than 7 day will be reselect date
-                handleTanggal();
+                handleDate();
                 window.alert("Batas sewa maksimal 7 Hari");
             } else {
                 // calculates number of days based on the selected date.
