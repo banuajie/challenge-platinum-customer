@@ -1,13 +1,86 @@
 import "./index.css";
-import React from "react";
-import { useSelector } from "react-redux";
+// main style file and theme css file for "DateRange"
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
+
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { DateRange } from "react-date-range";
+import { useNavigate } from "react-router";
 import icon_user from "../../assets/images/icon_users.png";
-import "react-date-range/dist/styles.css"; // main style file
-import "react-date-range/dist/theme/default.css"; // theme css file
+
+import { Link } from "react-router-dom";
+import { addOrder } from "../../actions/orderAction";
 
 const PackageDetail = () => {
     const { carDetailResult } = useSelector((state) => state.CarReducer);
+    const dispatch = useDispatch();
+
+    const navigate = useNavigate();
+    const [selectionRange, setSelectionRange] = useState([
+        {
+            startDate: null,
+            endDate: null,
+            key: "selection",
+        },
+    ]);
+    const [numberOfDays, setNumberOfDays] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0);
+
+    const handleDate = () => {
+        setSelectionRange([
+            {
+                startDate: null,
+                endDate: null,
+                key: "selection",
+            },
+        ]);
+        setTotalPrice(0);
+        setNumberOfDays(0);
+    };
+
+    useEffect(() => {
+        if (selectionRange[0].endDate && selectionRange[0].startDate) {
+            //kalau udah select tanggal
+            const totalDays = (selectionRange[0].endDate - selectionRange[0].startDate) / 86400000 + 1; //hitung jumlah hari
+            if (selectionRange[0].startDate < new Date()) {
+                window.alert("Tanggal yang Anda pilih tidak sesuai!");
+                handleDate();
+            } else if (totalDays > 7) {
+                // when user select more than 7 day will be reselect date
+                handleDate();
+                window.alert("Batas sewa maksimal 7 Hari");
+            } else {
+                // calculates number of days based on the selected date.
+                setNumberOfDays(totalDays);
+                // price result
+                setTotalPrice(carDetailResult.price * numberOfDays);
+            }
+        }
+    }, [selectionRange, numberOfDays, carDetailResult]);
+
+    const handlePayment = (event) => {
+        event.preventDefault();
+
+        // // post data to order API
+        dispatch(addOrder({ start_rent_at: selectionRange[0].startDate, finish_rent_at: selectionRange[0].endDate, car_id: carDetailResult.id }));
+
+        const setSessionCarDetail = {
+            // start_rent_at: selectionRange[0].startDate, // start date
+            // finish_rent_at: selectionRange[0].endDate, // end date
+            // car_id: carDetailResult.id, // car id
+            number_of_days: numberOfDays, // number of days
+            total_price: totalPrice, // total rental price
+            // price: carDetailResult.price, // daily rental price
+            // name: carDetailResult.name, // car name
+            // category: carDetailResult.category, // car category
+        };
+
+        // save to session storage, "key" and "value"
+        // window.sessionStorage.setItem("LastOrder", JSON.stringify(sendData));
+        window.sessionStorage.setItem("SessionCarDetail", JSON.stringify(setSessionCarDetail));
+        navigate("/payment");
+    };
 
     return (
         <>
@@ -21,21 +94,21 @@ const PackageDetail = () => {
                         </div>
 
                         <div className="row">
-                            <div class="col mb-3">
-                                <label class="form-label">Nama Mobil</label>
-                                <input type="text" class="form-control" placeholder={carDetailResult.name} disabled />
+                            <div className="col mb-3">
+                                <label className="form-label">Nama Mobil</label>
+                                <input type="text" className="form-control" placeholder={carDetailResult.name} disabled />
                             </div>
-                            <div class="col mb-3">
-                                <label class="form-label">Category</label>
-                                <input type="text" class="form-control" placeholder={carDetailResult.category} disabled />
+                            <div className="col mb-3">
+                                <label className="form-label">Category</label>
+                                <input type="text" className="form-control" placeholder={carDetailResult.category} disabled />
                             </div>
-                            <div class="col mb-3">
-                                <label class="form-label">Harga Sewa per Hari</label>
-                                <input type="text" class="form-control" placeholder={`Rp ${carDetailResult.price}`} disabled />
+                            <div className="col mb-3">
+                                <label className="form-label">Harga Sewa per Hari</label>
+                                <input type="text" className="form-control" placeholder={`Rp ${carDetailResult.price}`} disabled />
                             </div>
-                            <div class="col mb-3">
-                                <label class="form-label">Status</label>
-                                <input type="text" class="form-control" placeholder="Tersedia" disabled />
+                            <div className="col mb-3">
+                                <label className="form-label">Status</label>
+                                <input type="text" className="form-control" placeholder="Tersedia" disabled />
                             </div>
                         </div>
                     </form>
@@ -61,15 +134,15 @@ const PackageDetail = () => {
                                     <li>Tidak termasuk akomodasi penginapan</li>
                                 </ul>
 
-                                <div class="accordion" id="accordionExample">
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingOne">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <div className="accordion" id="accordionExample">
+                                    <div className="accordion-item">
+                                        <h2 className="accordion-header" id="headingOne">
+                                            <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                                 Refund, Reschedule, Overtime
                                             </button>
                                         </h2>
-                                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                            <div class="accordion-body">
+                                        <div id="collapseOne" className="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                            <div className="accordion-body">
                                                 <ul className="text-secondary">
                                                     <li>Tidak termasuk biaya makan sopir Rp 75.000/hari</li>
                                                     <li>Jika overtime lebih dari 12 jam akan ada tambahan biaya Rp 20.000/jam</li>
@@ -95,14 +168,33 @@ const PackageDetail = () => {
                                         <img src={icon_user} alt="Icon User" />
                                         <span className="category-info ps-2">{carDetailResult.category}</span>
                                         <p className="title-select-date my-auto">Tentukan lama sewa mobil (max. 7 hari)</p>
-                                        <DateRange
-                                            className="card-detail__calender"
-                                            startDatePlaceholder="Tanggal Awal Sewa"
-                                            endDatePlaceholder="Tanggal Akhir Sewa"
-                                            // onChange={(item) => setSelectionRange([item.selection])}
-                                            retainEndDateOnFirstSelection={true}
-                                            // ranges={selectionRange}
-                                        />
+                                        <div className="d-flex justify-content-center">
+                                            <DateRange
+                                                className="card-detail-calender"
+                                                startDatePlaceholder="Tanggal Awal Sewa"
+                                                endDatePlaceholder="Tanggal Akhir Sewa"
+                                                onChange={(item) => setSelectionRange([item.selection])}
+                                                retainEndDateOnFirstSelection={true}
+                                                ranges={selectionRange}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row justify-content-between p-3">
+                                    <div className="col">
+                                        <p className="fs-5 fw-bold text-start my-auto">Total</p>
+                                    </div>
+                                    <div className="col">
+                                        <p className="fs-5 fw-bold text-end my-auto">Rp {totalPrice}</p>
+                                    </div>
+                                </div>
+                                <div className="row p-3">
+                                    <div className="col">
+                                        <Link to="/payment">
+                                            <button className="btn btn-success w-100" disabled={numberOfDays ? false : true} onClick={(event) => handlePayment(event)}>
+                                                Lanjutkan Pembayaran
+                                            </button>
+                                        </Link>
                                     </div>
                                 </div>
                             </form>

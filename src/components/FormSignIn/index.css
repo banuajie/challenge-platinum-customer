@@ -1,0 +1,31 @@
+.content-signin {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn {
+    background-color: #0d28a6;
+}
+
+.signin-title {
+    font-family: "Arial";
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.label-email {
+    font-family: "Arial";
+    font-size: 14px;
+}
+.label-password {
+    font-family: "Arial";
+    font-size: 14px;
+}
+
+.text-signup-bottom {
+    font-family: "Arial";
+    font-size: 14px;
+    font-weight: bold;
+    color: #0d28a6;
+    text-decoration: underline;
+}

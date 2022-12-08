@@ -38,7 +38,9 @@ const HeaderNav = () => {
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <button className="btn btn-success">Register</button>
+                                <Link to="/signin">
+                                    <button className="btn btn-success">Register</button>
+                                </Link>
                             </li>
                         </ul>
                     </div>
