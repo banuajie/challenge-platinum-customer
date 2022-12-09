@@ -48,7 +48,7 @@ const HeaderNav = () => {
                                     </Link>
                                 )}
 
-                                {location.pathname !== "/payment" && token && (
+                                {location.pathname !== "/select-method" && token && (
                                     <Link to=".">
                                         <button className="btn btn-success" onClick={() => window.localStorage.removeItem("Token")}>
                                             Logout
@@ -56,7 +56,7 @@ const HeaderNav = () => {
                                     </Link>
                                 )}
 
-                                {location.pathname === "/payment" && token && (
+                                {location.pathname === "/select-method" && token && (
                                     <button className="btn btn-success" disabled>
                                         Logout
                                     </button>

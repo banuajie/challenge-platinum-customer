@@ -79,13 +79,13 @@ const PackageDetail = () => {
         // save to session storage, "key" and "value"
         // window.sessionStorage.setItem("LastOrder", JSON.stringify(sendData));
         window.sessionStorage.setItem("SessionCarDetail", JSON.stringify(setSessionCarDetail));
-        navigate("/payment");
+        navigate("/select-method");
     };
 
     return (
         <>
-            <section id="package-detail">
-                <div className="top-rectangle container-fluid"></div>
+            <section id="package-detail" className="pb-5">
+                <div className="top-rectangle-package container-fluid"></div>
 
                 <div className="form-content container">
                     <form className="form-package-detail bg-light ps-3 pe-3 pt-1 shadow-sm">
@@ -113,6 +113,8 @@ const PackageDetail = () => {
                         </div>
                     </form>
                 </div>
+
+                {/*  */}
 
                 <div className="container pt-4">
                     <div className="row">
@@ -190,7 +192,7 @@ const PackageDetail = () => {
                                 </div>
                                 <div className="row p-3">
                                     <div className="col">
-                                        <Link to="/payment">
+                                        <Link to="/select-method">
                                             <button type="submit" className="btn btn-success w-100" disabled={numberOfDays ? false : true} onClick={(event) => handlePayment(event)}>
                                                 Lanjutkan Pembayaran
                                             </button>

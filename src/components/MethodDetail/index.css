@@ -1,0 +1,20 @@
+.top-rectangle-method {
+    background-color: #f1f3ff;
+    height: 180px;
+}
+
+.form-content {
+    margin-top: -70px;
+}
+
+.form-select-bank {
+    border: gray;
+    border-radius: 10px;
+}
+
+.form-detail-payment {
+    border: gray;
+    border-radius: 10px;
+}
+
+/* /// */

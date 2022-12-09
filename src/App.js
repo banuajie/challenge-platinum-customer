@@ -4,7 +4,7 @@ import LandingPage from "./pages/LandingPage";
 import SearchCar from "./pages/SearchCar";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import Payment from "./pages/Payment";
+import SelectMethod from "./pages/SelectMethod";
 import PrivateRoutes from "./route/PrivateRoutes";
 import NotFound from "./pages/NotFound";
 
@@ -19,7 +19,7 @@ function App() {
                     <Route path="/signin" element={<SignIn />} />
                     <Route path="/signup" element={<SignUp />} />
                     <Route element={<PrivateRoutes />}>
-                        <Route path="/payment" element={<Payment />} />
+                        <Route path="/select-method" element={<SelectMethod />} />
                     </Route>
                     <Route path="*" element={<NotFound />} />
                 </Routes>
