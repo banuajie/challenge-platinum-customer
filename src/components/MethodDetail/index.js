@@ -184,21 +184,20 @@ const MethodDetail = () => {
                                     </div>
                                 </div>
 
-                                <div className="row">
-                                    <hr />
+                                <hr />
 
-                                    <div className="row">
-                                        <div className="col fs-5 fw-bold">Total</div>
-                                        <div className="col fs-5 fw-bold text-end">Rp {getSessionCarDetail.total_price}</div>
-                                    </div>
-                                    <div className="row p-3">
-                                        <div className="col">
-                                            <Link to="">
-                                                <button type="submit" className="btn btn-success w-100">
-                                                    Lanjutkan Pembayaran
-                                                </button>
-                                            </Link>
-                                        </div>
+                                <div className="row">
+                                    <div className="col fs-5 fw-bold">Total</div>
+                                    <div className="col fs-5 fw-bold text-end">Rp {getSessionCarDetail.total_price}</div>
+                                </div>
+
+                                <div className="row p-3">
+                                    <div className="col">
+                                        <Link to="">
+                                            <button type="submit" className="btn btn-success w-100">
+                                                Bayar
+                                            </button>
+                                        </Link>
                                     </div>
                                 </div>
                             </form>
