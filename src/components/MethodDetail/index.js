@@ -1,23 +1,29 @@
 import "./index.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import img_bank_bca from "../../assets/images/img_bank_bca.png";
 import img_bank_bni from "../../assets/images/img_bank_bni.png";
 import img_bank_mandiri from "../../assets/images/img_bank_mandiri.png";
-
 import icon_checklist from "../../assets/images/icon_checklist.png";
-import { Link } from "react-router-dom";
+import icon_users from "../../assets/images/icon_users.png";
+import img_back from "../../assets/images/img_back.png";
+import icon_step_line from "../../assets/images/icon_step_line.svg";
+import icon_step_1_blue from "../../assets/images/icon_step_1_blue.svg";
+import icon_step_2_white from "../../assets/images/icon_step_2_white.svg";
+import icon_step_3_white from "../../assets/images/icon_step_3_white.svg";
 
 const MethodDetail = () => {
-    const getSessionCarDetail = JSON.parse(window.sessionStorage.getItem("SessionCarDetail"));
     const { carDetailResult } = useSelector((state) => state.CarReducer);
+    const getSessionCarDetail = JSON.parse(window.sessionStorage.getItem("SessionCarDetail"));
 
-    console.log(getSessionCarDetail);
-    console.log(carDetailResult);
+    const navigate = useNavigate();
 
     const [bca, setBca] = useState(false);
     const [bni, setBni] = useState(false);
     const [mandiri, setMandiri] = useState(false);
+    const [selectBank, setSelectBank] = useState("");
 
     const nameMonth = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "Novenber", "Desember"];
     const startMount = getSessionCarDetail.start_rent_at.slice("5", "7");
@@ -30,10 +36,66 @@ const MethodDetail = () => {
     const endMonthString = nameMonth[endMount - 1];
     const endYear = getSessionCarDetail.finish_rent_at.slice("0", "4");
 
+    const combineStartDate = `${startYear}-${startMount}-${startDate}`;
+    const combineEndDate = `${endYear}-${endMount}-${endDate}`;
+
+    const handlerBayar = (event) => {
+        event.preventDefault();
+
+        const generatedOrderId = () => {
+            return Date.now();
+        };
+
+        const setSessionSelectMethod = {
+            order_id: generatedOrderId(),
+            select_bank: selectBank,
+            start_rent_at: combineStartDate,
+            finish_rent_at: combineEndDate,
+        };
+
+        window.sessionStorage.setItem("SessionSelectMethod", JSON.stringify(setSessionSelectMethod));
+        navigate("/payment");
+    };
+
     return (
         <>
             <section id="method-detail" className="pb-5">
-                <div className="top-rectangle-method container-fluid"></div>
+                <div className="top-rectangle-method container-fluid">
+                    <div className="top-content container h-100">
+                        <div className="row h-50 align-items-center">
+                            <div className="col-7">
+                                <span
+                                    className="text-back fs-5 fw-bold"
+                                    onClick={() => {
+                                        navigate(`/cars/${carDetailResult.id}`);
+                                    }}
+                                >
+                                    <img src={img_back} alt="Back" /> {"  "} Pembayaran
+                                </span>
+                            </div>
+                            <div className="col-5">
+                                <div className="row justify-content-end">
+                                    <div className="col-auto">
+                                        <img src={icon_step_1_blue} alt="Step 1" /> {"  "}
+                                        <span className="my-auto ms-1">Pilih Metode</span> {"  "}
+                                        <img src={icon_step_line} alt="Line" className="ms-3" />
+                                    </div>
+
+                                    <div className="col-auto">
+                                        <img src={icon_step_2_white} alt="Step 2" /> {"  "}
+                                        <span className="my-auto ms-1">Bayar</span> {"  "}
+                                        <img src={icon_step_line} alt="Line" className="ms-3" />
+                                    </div>
+
+                                    <div className="col-auto">
+                                        <img src={icon_step_3_white} alt="Step 3" /> {"  "}
+                                        <span className="my-auto ms-1">Tiket</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div className="form-content container">
                     <form className="form-order-detail bg-light ps-4 pe-3 pt-3 shadow-sm">
@@ -66,8 +128,6 @@ const MethodDetail = () => {
                     </form>
                 </div>
 
-                {/*  */}
-
                 <div className="container pt-4">
                     <div className="row">
                         <div className="col-7">
@@ -80,6 +140,7 @@ const MethodDetail = () => {
                                         setBca(true);
                                         setBni(false);
                                         setMandiri(false);
+                                        setSelectBank("BCA Transfer");
                                     }}
                                 >
                                     <div className="col-11">
@@ -97,6 +158,7 @@ const MethodDetail = () => {
                                         setBni(true);
                                         setBca(false);
                                         setMandiri(false);
+                                        setSelectBank("BNI Transfer");
                                     }}
                                 >
                                     <div className="col-11">
@@ -114,6 +176,7 @@ const MethodDetail = () => {
                                         setMandiri(true);
                                         setBni(false);
                                         setBca(false);
+                                        setSelectBank("Mandiri Transfer");
                                     }}
                                 >
                                     <div className="col-11">
@@ -132,7 +195,9 @@ const MethodDetail = () => {
                                 </div>
 
                                 <div className="row">
-                                    <p className="fs-6 text-secondary">{carDetailResult.category}</p>
+                                    <p className="fs-6 text-secondary">
+                                        <img src={icon_users} alt="Category" /> {"  "} {carDetailResult.category}
+                                    </p>
                                 </div>
 
                                 <div className="row pb-3">
@@ -193,11 +258,9 @@ const MethodDetail = () => {
 
                                 <div className="row p-3">
                                     <div className="col">
-                                        <Link to="">
-                                            <button type="submit" className="btn btn-success w-100">
-                                                Bayar
-                                            </button>
-                                        </Link>
+                                        <button type="submit" className="btn btn-success w-100" onClick={(event) => handlerBayar(event)} disabled={selectBank === "" ? true : false}>
+                                            Bayar
+                                        </button>
                                     </div>
                                 </div>
                             </form>

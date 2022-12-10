@@ -7,6 +7,7 @@ import SignUp from "./pages/SignUp";
 import SelectMethod from "./pages/SelectMethod";
 import PrivateRoutes from "./route/PrivateRoutes";
 import NotFound from "./pages/NotFound";
+import Payment from "./pages/Payment";
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                     <Route path="/signup" element={<SignUp />} />
                     <Route element={<PrivateRoutes />}>
                         <Route path="/select-method" element={<SelectMethod />} />
+                        <Route path="/payment" element={<Payment />} />
                     </Route>
                     <Route path="*" element={<NotFound />} />
                 </Routes>

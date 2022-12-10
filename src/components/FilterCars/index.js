@@ -13,7 +13,7 @@ const FilterCars = () => {
     const [filterCategory, setFilterCategory] = useState("");
     const [filterPrice, setFilterPrice] = useState("");
     const [minPrice, setMinPrice] = useState(0);
-    const [maxPrice, setMaxPrice] = useState(1000000);
+    const [maxPrice, setMaxPrice] = useState(10000000);
     const [saveFilter, setSaveFilter] = useState([]);
 
     useEffect(() => {
@@ -107,10 +107,10 @@ const FilterCars = () => {
                                                     setMaxPrice(600000);
                                                 } else if (event.target.value === "600000") {
                                                     setMinPrice(600000);
-                                                    setMaxPrice(1000000);
+                                                    setMaxPrice(10000000);
                                                 } else {
                                                     setMinPrice(0);
-                                                    setMaxPrice(1000000);
+                                                    setMaxPrice(10000000);
                                                 }
                                             }}
                                         >

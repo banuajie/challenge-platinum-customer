@@ -3,6 +3,10 @@
     height: 180px;
 }
 
+.text-back:hover {
+    cursor: pointer;
+}
+
 .form-content {
     margin-top: -70px;
 }
@@ -16,5 +20,3 @@
     border: gray;
     border-radius: 10px;
 }
-
-/* /// */
