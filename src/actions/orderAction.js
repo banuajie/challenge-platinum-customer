@@ -3,6 +3,8 @@ import axios from "axios";
 export const ADD_ORDER = "ADD_ORDER";
 
 export const addOrder = (data) => {
+    const token = window.localStorage.getItem("Token");
+
     return (dispatch) => {
         // loading
         dispatch({
@@ -19,6 +21,7 @@ export const addOrder = (data) => {
             method: "POST",
             url: "https://bootcamp-rent-cars.herokuapp.com/customer/order",
             timeout: 10000,
+            headers: { access_token: token },
             data: data,
         })
             .then((response) => {

@@ -11,19 +11,26 @@ import img_bank_mandiri from "../../assets/images/img_bank_mandiri.png";
 import icon_copy from "../../assets/images/icon_copy.png";
 
 import { useNavigate } from "react-router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addOrder } from "../../actions/orderAction";
 
 const PaymentDetail = () => {
     const navigate = useNavigate();
     const { carDetailResult } = useSelector((state) => state.CarReducer);
+    const { addOrderResult } = useSelector((state) => state.OrderReducer);
     const getSessionCarDetail = JSON.parse(window.sessionStorage.getItem("SessionCarDetail"));
     const getSessionSelectMethod = JSON.parse(window.sessionStorage.getItem("SessionSelectMethod"));
+    const dispatch = useDispatch();
 
     const [tabPayment, setTabPayment] = useState("");
+    const [stepConfirm, setStepConfirm] = useState("Payment Confirmation");
     const [hours, setHours] = useState(23);
     const [minutes, setMinutes] = useState(59);
     const [seconds, setSeconds] = useState(59);
+    const [minutesDeadline, setMinutesDeadline] = useState(0);
+    const [secondsDeadline, setSecondsDeadline] = useState(0);
 
+    // Payment Deadline
     useEffect(() => {
         setTimeout(() => {
             if (seconds > 0) {
@@ -46,9 +53,43 @@ const PaymentDetail = () => {
         }, 1000);
     }, [seconds, minutes, hours]);
 
+    // Confirm Deadline
+    useEffect(() => {
+        setTimeout(() => {
+            if (secondsDeadline > 0) {
+                setSecondsDeadline(secondsDeadline - 1);
+            } else {
+                setSecondsDeadline(59);
+                if (minutesDeadline > 0) {
+                    setMinutesDeadline(minutesDeadline - 1);
+                } else {
+                    setMinutesDeadline(0);
+                    setSecondsDeadline(0);
+                }
+            }
+        }, 1000);
+    }, [secondsDeadline, minutesDeadline]);
+
+    const handleKonfirmasiPembayaran = (event) => {
+        event.preventDefault();
+
+        setStepConfirm("Upload Payment");
+        setMinutesDeadline(9);
+        setSecondsDeadline(59);
+
+        dispatch(addOrder({ start_rent_at: getSessionSelectMethod.start_rent_at, finish_rent_at: getSessionSelectMethod.finish_rent_at, car_id: carDetailResult.id }));
+
+        if (addOrderResult) {
+            console.log("ini carDetailResult : ", carDetailResult);
+            console.log("ini getSessionCarDetail : ", getSessionCarDetail);
+            console.log("ini getSessionSelectMethod : ", getSessionSelectMethod);
+            console.log("ini addOrderResult : ", addOrderResult);
+        }
+    };
+
     return (
         <>
-            <section id="payment-detail">
+            <section id="payment-detail" className="mb-5">
                 <div className="top-rectangle-payment container-fluid">
                     <div className="top-content container h-100">
                         <div className="row h-75 align-items-center">
@@ -92,8 +133,10 @@ const PaymentDetail = () => {
                 </div>
 
                 <div className="container">
-                    <div className="row">
+                    <div className="row g-5">
+                        {/* Start Content Left */}
                         <div className="col-7">
+                            {/* Start Form Selesaikan Pembayaran Sebelum */}
                             <div className="row pt-5">
                                 <form className="form-payment-time-limit bg-light ps-3 pe-3 pt-3 pb-3 shadow-sm">
                                     <div className="row">
@@ -123,7 +166,9 @@ const PaymentDetail = () => {
                                     </div>
                                 </form>
                             </div>
+                            {/* End Form Selesaikan Pembayaran Sebelum */}
 
+                            {/* Start Form Lakukan Transfer Ke */}
                             <div className="row pt-4">
                                 <form className="form-payment-time-limit bg-light ps-3 pe-3 pt-3 pb-3 shadow-sm">
                                     <div className="row">
@@ -180,12 +225,13 @@ const PaymentDetail = () => {
                                     </div>
                                 </form>
                             </div>
+                            {/* End Form Lakukan Transfer Ke */}
 
+                            {/* Start Form Intruksi Pembayaran */}
                             <div className="row pt-4">
                                 <form className="form-payment-time-limit bg-light ps-3 pe-3 pt-3 pb-3 shadow-sm">
                                     <div className="row">
                                         <div className="col">
-                                            {/* Content Form Start */}
                                             <div className="row">
                                                 <div className="col">
                                                     <p className="fs-5 fw-bold">Intruksi Pembayaran</p>
@@ -267,14 +313,75 @@ const PaymentDetail = () => {
                                                     </ul>
                                                 </div>
                                             </div>
-                                            {/* Content Form End */}
                                         </div>
                                     </div>
                                 </form>
                             </div>
+                            {/* End Form Intruksi Pembayaran */}
                         </div>
+                        {/* End Content Left */}
 
-                        <div className="col-5"></div>
+                        {/* Start Content Right */}
+                        <div className="col-5">
+                            <div className="row pt-5">
+                                <form className="form-payment-confirmation bg-light ps-3 pe-3 pt-3 pb-3 shadow-sm">
+                                    {/* Start Payment Confirmation */}
+                                    {stepConfirm === "Payment Confirmation" && (
+                                        <div className="container">
+                                            <div className="row mb-5">
+                                                <p className="desc-payment-confirmation my-auto">Klik konfirmasi pembayaran untuk mempercepat proses pengecekan</p>
+                                            </div>
+
+                                            <div className="row">
+                                                <button className="btn btn-success" onClick={(event) => handleKonfirmasiPembayaran(event)}>
+                                                    Konfirmasi Pembayaran
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
+                                    {/* End Payment Confirmation */}
+
+                                    {/* Start Upload Payment */}
+                                    {stepConfirm === "Upload Payment" && (
+                                        <div className="container">
+                                            <div className="row">
+                                                <div className="col">
+                                                    <p className="fs-5 fw-bold">Konfirmasi Pembayaran</p>
+                                                </div>
+
+                                                <div className="col align-self-center text-end">
+                                                    <span className="text-time">
+                                                        {minutesDeadline < 10 ? "0" : ""}
+                                                        {minutesDeadline}
+                                                    </span>
+                                                    <span className="separator"> : </span>
+                                                    <span className="text-time">
+                                                        {secondsDeadline < 10 ? "0" : ""}
+                                                        {secondsDeadline}
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div className="row">
+                                                <div className="col">
+                                                    <p className="desc-payment-confirmation">
+                                                        Terima kasih telah melakukan konfirmasi pembayaran. Pembayaranmu akan segera kami cek tunggu kurang lebih 10 menit untuk mendapatkan konfirmasi.
+                                                    </p>
+                                                    <p className="title-upload-payment">Upload Bukti Pembayaran</p>
+                                                    <p className="desc-upload-payment">Untuk membantu kami lebih cepat melakukan pengecekan. Kamu bisa upload bukti bayarmu</p>
+                                                </div>
+                                            </div>
+
+                                            <div className="row">
+                                                <div className="col"></div>
+                                            </div>
+                                        </div>
+                                    )}
+                                    {/* End Upload Payment */}
+                                </form>
+                            </div>
+                        </div>
+                        {/* End Content Right */}
                     </div>
                 </div>
             </section>
