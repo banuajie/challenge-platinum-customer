@@ -25,6 +25,8 @@ const MethodDetail = () => {
     const [mandiri, setMandiri] = useState(false);
     const [selectBank, setSelectBank] = useState("");
 
+    // collect days and month name
+    const nameDay = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"];
     const nameMonth = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "Novenber", "Desember"];
     const startMount = getSessionCarDetail.start_rent_at.slice("5", "7");
     const endMount = getSessionCarDetail.finish_rent_at.slice("5", "7");
@@ -39,6 +41,11 @@ const MethodDetail = () => {
     const combineStartDate = `${startYear}-${startMount}-${startDate}`;
     const combineEndDate = `${endYear}-${endMount}-${endDate}`;
 
+    const today = new Date();
+    const transactionDate = `${nameDay[today.getDay()]}, ${today.getDate()} ${nameMonth[today.getMonth()]} ${today.getFullYear()}`;
+    const transactionTime = `${today.getHours()}:${today.getMinutes()}`;
+    const limitDatePayment = `${nameDay[today.getDay() + 1]}, ${today.getDate() + 1} ${nameMonth[today.getMonth()]} ${today.getFullYear()}`;
+
     const handlerBayar = (event) => {
         event.preventDefault();
 
@@ -51,6 +58,9 @@ const MethodDetail = () => {
             select_bank: selectBank,
             start_rent_at: combineStartDate,
             finish_rent_at: combineEndDate,
+            transaction_date: transactionDate,
+            transaction_time: transactionTime,
+            limit_date_payment: limitDatePayment,
         };
 
         window.sessionStorage.setItem("SessionSelectMethod", JSON.stringify(setSessionSelectMethod));
