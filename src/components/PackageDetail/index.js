@@ -34,6 +34,7 @@ const PackageDetail = () => {
                 key: "selection",
             },
         ]);
+
         setTotalPrice(0);
         setNumberOfDays(0);
     };
@@ -41,7 +42,7 @@ const PackageDetail = () => {
     useEffect(() => {
         if (selectionRange[0].endDate && selectionRange[0].startDate) {
             // if you have chosen a date
-            const totalDays = (selectionRange[0].endDate - selectionRange[0].startDate) / 86400000 + 1; // count number of days
+            const totalDays = (selectionRange[0].endDate - selectionRange[0].startDate) / 86400000; // count number of days
 
             if (selectionRange[0].startDate < new Date()) {
                 window.alert("Tanggal yang Anda pilih tidak sesuai!");
@@ -62,22 +63,14 @@ const PackageDetail = () => {
     const handlePayment = (event) => {
         event.preventDefault();
 
-        // // post data to order API
-        // dispatch(addOrder({ start_rent_at: selectionRange[0].startDate, finish_rent_at: selectionRange[0].endDate, car_id: carDetailResult.id }));
-
         const setSessionCarDetail = {
             start_rent_at: selectionRange[0].startDate, // start date
             finish_rent_at: selectionRange[0].endDate, // end date
-            // car_id: carDetailResult.id, // car id
             number_of_days: numberOfDays, // number of days
             total_price: totalPrice, // total rental price
-            // price: carDetailResult.price, // daily rental price
-            // name: carDetailResult.name, // car name
-            // category: carDetailResult.category, // car category
         };
 
         // save to session storage, "key" and "value"
-        // window.sessionStorage.setItem("LastOrder", JSON.stringify(sendData));
         window.sessionStorage.setItem("SessionCarDetail", JSON.stringify(setSessionCarDetail));
         navigate("/select-method");
     };

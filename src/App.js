@@ -8,6 +8,7 @@ import SelectMethod from "./pages/SelectMethod";
 import PrivateRoutes from "./route/PrivateRoutes";
 import NotFound from "./pages/NotFound";
 import Payment from "./pages/Payment";
+import Ticket from "./pages/Ticket";
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                     <Route element={<PrivateRoutes />}>
                         <Route path="/select-method" element={<SelectMethod />} />
                         <Route path="/payment" element={<Payment />} />
+                        <Route path="/ticket" element={<Ticket />} />
                     </Route>
                     <Route path="*" element={<NotFound />} />
                 </Routes>

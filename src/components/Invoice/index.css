@@ -1,0 +1,32 @@
+.ticket-title {
+    font-family: "Arial";
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.ticket-desc {
+    font-family: "Arial";
+    font-size: 14px;
+    color: #8a8a8a;
+}
+
+.form-invoice {
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+}
+
+.text-invoice {
+    font-family: "Arial";
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.button-download {
+    border: 2px solid #0d28a6;
+    border-radius: 3px;
+}
+
+.text-download {
+    color: #0d28a6;
+    font-weight: bold;
+}

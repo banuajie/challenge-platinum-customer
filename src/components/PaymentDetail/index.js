@@ -1,4 +1,5 @@
 import "./index.css";
+import DropFile from "../DropFile";
 import React, { useEffect, useState } from "react";
 import img_back from "../../assets/images/img_back.png";
 import icon_step_line from "../../assets/images/icon_step_line.svg";
@@ -12,16 +13,17 @@ import icon_copy from "../../assets/images/icon_copy.png";
 
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { addOrder } from "../../actions/orderAction";
+import { addOrder, updateOrder } from "../../actions/orderAction";
 
 const PaymentDetail = () => {
     const navigate = useNavigate();
     const { carDetailResult } = useSelector((state) => state.CarReducer);
-    const { addOrderResult } = useSelector((state) => state.OrderReducer);
+
+    const dispatch = useDispatch();
     const getSessionCarDetail = JSON.parse(window.sessionStorage.getItem("SessionCarDetail"));
     const getSessionSelectMethod = JSON.parse(window.sessionStorage.getItem("SessionSelectMethod"));
-    const dispatch = useDispatch();
 
+    const [image, setImage] = useState(null);
     const [tabPayment, setTabPayment] = useState("");
     const [stepConfirm, setStepConfirm] = useState("Payment Confirmation");
     const [hours, setHours] = useState(23);
@@ -73,18 +75,18 @@ const PaymentDetail = () => {
     const handleKonfirmasiPembayaran = (event) => {
         event.preventDefault();
 
-        setStepConfirm("Upload Payment");
+        setStepConfirm("Upload Slip");
         setMinutesDeadline(9);
         setSecondsDeadline(59);
 
         dispatch(addOrder({ start_rent_at: getSessionSelectMethod.start_rent_at, finish_rent_at: getSessionSelectMethod.finish_rent_at, car_id: carDetailResult.id }));
+    };
 
-        if (addOrderResult) {
-            console.log("ini carDetailResult : ", carDetailResult);
-            console.log("ini getSessionCarDetail : ", getSessionCarDetail);
-            console.log("ini getSessionSelectMethod : ", getSessionSelectMethod);
-            console.log("ini addOrderResult : ", addOrderResult);
-        }
+    const uploadSlip = (event) => {
+        event.preventDefault();
+
+        dispatch(updateOrder({ slip: image }));
+        navigate("/ticket");
     };
 
     return (
@@ -103,6 +105,7 @@ const PaymentDetail = () => {
                                     <img src={img_back} alt="Back" /> {"  "} {getSessionSelectMethod.select_bank}
                                 </span>
                             </div>
+
                             <div className="col-5">
                                 <div className="row justify-content-end">
                                     <div className="col-auto">
@@ -124,6 +127,7 @@ const PaymentDetail = () => {
                                 </div>
                             </div>
                         </div>
+
                         <div className="row-order-id row">
                             <div className="col">
                                 <span className="text-order-id">Order ID : {getSessionSelectMethod.order_id}</span>
@@ -341,8 +345,8 @@ const PaymentDetail = () => {
                                     )}
                                     {/* End Payment Confirmation */}
 
-                                    {/* Start Upload Payment */}
-                                    {stepConfirm === "Upload Payment" && (
+                                    {/* Start Upload Slip */}
+                                    {stepConfirm === "Upload Slip" && (
                                         <div className="container">
                                             <div className="row">
                                                 <div className="col">
@@ -372,12 +376,31 @@ const PaymentDetail = () => {
                                                 </div>
                                             </div>
 
-                                            <div className="row">
-                                                <div className="col"></div>
+                                            <div className="row pb-2">
+                                                <div className="col">
+                                                    <DropFile setImage={setImage} />
+                                                    {image ? (
+                                                        <div className="row">
+                                                            <div className="col">
+                                                                <button className="btn btn-success w-100" onClick={(event) => uploadSlip(event)} disabled={hours === 0 && minutes === 0 && seconds === 0 ? true : false}>
+                                                                    Konfirmasi
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    ) : (
+                                                        <div className="row">
+                                                            <div className="col">
+                                                                <button className="btn btn-success w-100" disabled>
+                                                                    Upload
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
                                     )}
-                                    {/* End Upload Payment */}
+                                    {/* End Upload Slip */}
                                 </form>
                             </div>
                         </div>
