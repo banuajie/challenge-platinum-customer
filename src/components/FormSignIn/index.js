@@ -63,7 +63,14 @@ const FormSignIn = () => {
                         <div className="col">
                             <div className="row content-signin h-100 d-flex flex-column align-items-center justify-content-center">
                                 <form className="w-75" onSubmit={(event) => handleSignIn(event)}>
-                                    <img src={img_rectangle_register} alt="Rectangle Register" className="mb-4" />
+                                    <img
+                                        src={img_rectangle_register}
+                                        alt="Rectangle Register"
+                                        className="mb-4"
+                                        onClick={() => {
+                                            navigate("/");
+                                        }}
+                                    />
                                     <p className="signin-title">Welcome Back!</p>
                                     {error && <RegisterError message={error} setError={setError} />}
 

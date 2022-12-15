@@ -105,7 +105,9 @@ const Invoice = () => {
                                     </div>
                                 </div>
 
-                                <div className="row"></div>
+                                <div className="row">
+                                    <div className="col"></div>
+                                </div>
                             </form>
                         </div>
                     </div>
