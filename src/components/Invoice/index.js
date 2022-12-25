@@ -7,7 +7,7 @@ import icon_step_line from "../../assets/images/icon_step_line.svg";
 import icon_step_checklist from "../../assets/images/icon_step_checklist.svg";
 import icon_step_3_blue from "../../assets/images/icon_step_3_blue.svg";
 import icon_success from "../../assets/images/icon_success.png";
-import icon_unduh from "../../assets/images/icon_download.png";
+import icon_download from "../../assets/images/icon_download.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrder } from "../../actions/orderAction";
 
@@ -95,7 +95,7 @@ const Invoice = () => {
                                         <button className="button-download">
                                             <div className="row">
                                                 <div className="col w-auto">
-                                                    <img src={icon_unduh} alt="Download" className="my-2" />
+                                                    <img src={icon_download} alt="Download" className="my-2" />
                                                 </div>
                                                 <div className="col align-self-center w-auto ps-0">
                                                     <span className="text-download my-auto">Unduh</span>
