@@ -39,9 +39,6 @@ export const addOrder = (data) => {
                     },
                 });
 
-                console.log("Ini Response add order id : ", response.data.id);
-                console.log("Ini Response add order : ", response.data);
-
                 window.sessionStorage.setItem("SessionAddOrder", JSON.stringify(response.data));
             })
             .catch((error) => {
@@ -95,9 +92,6 @@ export const updateOrder = (data) => {
                     },
                 });
 
-                console.log("Ini response update order id : ", response.data.id);
-                console.log("Ini response update order : ", response.data);
-
                 window.sessionStorage.setItem("SessionUpdateOrder", JSON.stringify(response.data));
             })
             .catch((error) => {
@@ -147,9 +141,6 @@ export const getOrder = () => {
                         errorMessage: false,
                     },
                 });
-
-                console.log("Ini response get order id : ", response.data.id);
-                console.log("Ini response get order : ", response.data);
 
                 window.sessionStorage.setItem("SessionGetOrder", JSON.stringify(response.data));
             })

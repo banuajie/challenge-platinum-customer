@@ -217,7 +217,7 @@ const PaymentDetail = () => {
                                                     </div>
                                                     <div className="box-total-payment row">
                                                         <div className="col">
-                                                            <span className="fw-bold">Rp {getSessionCarDetail.total_price}</span>
+                                                            <span className="fw-bold">Rp {new Intl.NumberFormat("id-ID").format(getSessionCarDetail.total_price)}</span>
                                                         </div>
                                                         <div className="col text-end align-content-center">
                                                             <img src={icon_copy} alt="Copy Text" className="icon-copy" onClick={() => navigator.clipboard.writeText(getSessionCarDetail.total_price)} />

@@ -225,10 +225,10 @@ const MethodDetail = () => {
                                                         <div className="row justify-content-between">
                                                             <div className="col-8">
                                                                 <li>
-                                                                    Sewa Mobil Rp {carDetailResult.price} x {getSessionCarDetail.number_of_days} Hari
+                                                                    Sewa Mobil Rp {new Intl.NumberFormat("id-ID").format(carDetailResult.price)} x {getSessionCarDetail.number_of_days} Hari
                                                                 </li>
                                                             </div>
-                                                            <span className="col-4 text-end">Rp {getSessionCarDetail.total_price}</span>
+                                                            <span className="col-4 text-end">Rp {new Intl.NumberFormat("id-ID").format(getSessionCarDetail.total_price)}</span>
                                                         </div>
                                                     </ul>
 
@@ -263,7 +263,7 @@ const MethodDetail = () => {
 
                                 <div className="row">
                                     <div className="col fs-5 fw-bold">Total</div>
-                                    <div className="col fs-5 fw-bold text-end">Rp {getSessionCarDetail.total_price}</div>
+                                    <div className="col fs-5 fw-bold text-end">Rp {new Intl.NumberFormat("id-ID").format(getSessionCarDetail.total_price)}</div>
                                 </div>
 
                                 <div className="row p-3">

@@ -8,9 +8,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { DateRange } from "react-date-range";
 import { useNavigate } from "react-router";
-import icon_user from "../../assets/images/icon_users.png";
-
 import { Link } from "react-router-dom";
+import icon_user from "../../assets/images/icon_users.png";
 
 const PackageDetail = () => {
     const { carDetailResult } = useSelector((state) => state.CarReducer);
@@ -97,7 +96,7 @@ const PackageDetail = () => {
                             </div>
                             <div className="col mb-3">
                                 <label className="form-label">Harga Sewa per Hari</label>
-                                <input type="text" className="form-control" placeholder={`Rp ${carDetailResult.price}`} disabled />
+                                <input type="text" className="form-control" placeholder={`Rp ${new Intl.NumberFormat("id-ID").format(carDetailResult.price)}`} disabled />
                             </div>
                             <div className="col mb-3">
                                 <label className="form-label">Status</label>
@@ -180,7 +179,7 @@ const PackageDetail = () => {
                                         <p className="fs-5 fw-bold text-start my-auto">Total</p>
                                     </div>
                                     <div className="col">
-                                        <p className="fs-5 fw-bold text-end my-auto">Rp {totalPrice}</p>
+                                        <p className="fs-5 fw-bold text-end my-auto">Rp {new Intl.NumberFormat("id-ID").format(totalPrice)}</p>
                                     </div>
                                 </div>
                                 <div className="row p-3">

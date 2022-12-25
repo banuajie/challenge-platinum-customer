@@ -150,7 +150,7 @@ const FilterCars = () => {
                                                 <img src={car.image} className="car-image card-img-top" alt="Car" />
                                                 <div className="card-body">
                                                     <p className="car-name card-text">{car.name}</p>
-                                                    <h5 className="car-price card-title">Rp {car.price} / hari</h5>
+                                                    <h5 className="car-price card-title">Rp {new Intl.NumberFormat("id-ID").format(car.price)} / hari</h5>
                                                     <p className="car-desc card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                                                     <div className="row ps-2 pe-2">
                                                         <Link to={`/cars/${car.id}`} className="ps-2 pe-2">
