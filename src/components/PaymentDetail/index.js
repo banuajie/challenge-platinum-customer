@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import "./index.css";
 import DropFile from "../DropFile";
 import React, { useEffect, useState } from "react";
@@ -87,6 +88,7 @@ const PaymentDetail = () => {
 
         dispatch(updateOrder({ slip: image }));
         navigate("/ticket");
+        window.location.reload();
     };
 
     return (

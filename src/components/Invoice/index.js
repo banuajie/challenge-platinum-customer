@@ -18,12 +18,14 @@ const Invoice = () => {
     const [updateOrder, setUpdateOrder] = useState({});
 
     useEffect(() => {
-        setUpdateOrder(getOrderResult);
-    }, [getOrderResult]);
-
-    useEffect(() => {
         dispatch(getOrder());
     }, [dispatch]);
+
+    useEffect(() => {
+        if (getOrderResult) {
+            setUpdateOrder(getOrderResult);
+        }
+    }, [getOrderResult]);
 
     return (
         <>

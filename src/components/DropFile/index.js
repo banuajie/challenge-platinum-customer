@@ -4,6 +4,7 @@ import { useDropzone } from "react-dropzone";
 import "react-dropzone-uploader/dist/styles.css";
 import img_upload from "../../assets/images/img_upload.png";
 
+// eslint-disable-next-line react/prop-types
 const DropFile = ({ setImage }) => {
     const [files, setFiles] = useState([]);
     const { getRootProps, getInputProps } = useDropzone({

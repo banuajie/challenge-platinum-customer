@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CarDetail from "./pages/CarDetail";
 import LandingPage from "./pages/LandingPage";
