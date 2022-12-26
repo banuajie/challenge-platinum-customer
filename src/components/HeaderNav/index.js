@@ -37,7 +37,7 @@ const HeaderNav = () => {
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link text-dark" href={location.pathname === "/" ? "#testimony" : "/"}>
+                                <a className="nav-link text-dark" href={location.pathname === "/" ? "#faq" : "/"}>
                                     FAQ
                                 </a>
                             </li>
