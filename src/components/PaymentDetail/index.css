@@ -1,0 +1,67 @@
+.top-rectangle-payment {
+    background-color: #f1f3ff;
+    height: 100px;
+}
+
+.row-order-id {
+    margin-top: -25px;
+    padding-left: 30px;
+}
+
+.form-payment-time-limit {
+    border: gray;
+    border-radius: 10px;
+}
+
+.text-time {
+    font-size: 18px;
+    font-family: "Arial";
+    color: white;
+
+    background-color: #fa2c5a;
+    border-radius: 3px;
+    padding: 2px;
+}
+
+.separator {
+    font-size: 18px;
+    font-family: "Arial";
+}
+
+.box-rekening-number {
+    border: 1px solid black;
+    border-radius: 2px;
+    padding: 5px;
+    margin: auto;
+}
+
+.box-total-payment {
+    border: 1px solid black;
+    border-radius: 2px;
+    padding: 5px;
+    margin: auto;
+}
+
+.icon-copy {
+    cursor: pointer;
+}
+
+.desc-payment-confirmation {
+    font-size: 14px;
+    font-family: "Arial";
+}
+
+.title-upload-payment {
+    font-size: 16px;
+    font-family: "Arial";
+}
+
+.desc-upload-payment {
+    font-size: 14px;
+    font-family: "Arial";
+}
+
+.form-payment-confirmation {
+    border: gray;
+    border-radius: 10px;
+}

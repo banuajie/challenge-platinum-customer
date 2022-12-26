@@ -1,16 +1,16 @@
 import React from "react";
 import Footer from "../../components/Footer";
 import HeaderNav from "../../components/HeaderNav";
-import PaymentDetail from "../../components/PaymentDetail";
+import Invoice from "../../components/Invoice";
 
-const Payment = () => {
+const Ticket = () => {
     return (
         <div>
             <HeaderNav />
-            <PaymentDetail />
+            <Invoice />
             <Footer />
         </div>
     );
 };
 
-export default Payment;
+export default Ticket;

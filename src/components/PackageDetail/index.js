@@ -1,22 +1,20 @@
 import "./index.css";
+
 // main style file and theme css file for "DateRange"
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { DateRange } from "react-date-range";
 import { useNavigate } from "react-router";
-import icon_user from "../../assets/images/icon_users.png";
-
 import { Link } from "react-router-dom";
-import { addOrder } from "../../actions/orderAction";
+import icon_user from "../../assets/images/icon_users.png";
 
 const PackageDetail = () => {
     const { carDetailResult } = useSelector((state) => state.CarReducer);
-    const dispatch = useDispatch();
-
     const navigate = useNavigate();
+
     const [selectionRange, setSelectionRange] = useState([
         {
             startDate: null,
@@ -35,14 +33,16 @@ const PackageDetail = () => {
                 key: "selection",
             },
         ]);
+
         setTotalPrice(0);
         setNumberOfDays(0);
     };
 
     useEffect(() => {
         if (selectionRange[0].endDate && selectionRange[0].startDate) {
-            //kalau udah select tanggal
-            const totalDays = (selectionRange[0].endDate - selectionRange[0].startDate) / 86400000 + 1; //hitung jumlah hari
+            // if you have chosen a date
+            const totalDays = (selectionRange[0].endDate - selectionRange[0].startDate) / 86400000; // count number of days
+
             if (selectionRange[0].startDate < new Date()) {
                 window.alert("Tanggal yang Anda pilih tidak sesuai!");
                 handleDate();
@@ -62,30 +62,22 @@ const PackageDetail = () => {
     const handlePayment = (event) => {
         event.preventDefault();
 
-        // // post data to order API
-        dispatch(addOrder({ start_rent_at: selectionRange[0].startDate, finish_rent_at: selectionRange[0].endDate, car_id: carDetailResult.id }));
-
         const setSessionCarDetail = {
-            // start_rent_at: selectionRange[0].startDate, // start date
-            // finish_rent_at: selectionRange[0].endDate, // end date
-            // car_id: carDetailResult.id, // car id
+            start_rent_at: selectionRange[0].startDate, // start date
+            finish_rent_at: selectionRange[0].endDate, // end date
             number_of_days: numberOfDays, // number of days
             total_price: totalPrice, // total rental price
-            // price: carDetailResult.price, // daily rental price
-            // name: carDetailResult.name, // car name
-            // category: carDetailResult.category, // car category
         };
 
         // save to session storage, "key" and "value"
-        // window.sessionStorage.setItem("LastOrder", JSON.stringify(sendData));
         window.sessionStorage.setItem("SessionCarDetail", JSON.stringify(setSessionCarDetail));
-        navigate("/payment");
+        navigate("/select-method");
     };
 
     return (
         <>
-            <section id="package-detail">
-                <div className="top-rectangle container-fluid"></div>
+            <section id="package-detail" className="pb-5">
+                <div className="top-rectangle-package container-fluid"></div>
 
                 <div className="form-content container">
                     <form className="form-package-detail bg-light ps-3 pe-3 pt-1 shadow-sm">
@@ -104,7 +96,7 @@ const PackageDetail = () => {
                             </div>
                             <div className="col mb-3">
                                 <label className="form-label">Harga Sewa per Hari</label>
-                                <input type="text" className="form-control" placeholder={`Rp ${carDetailResult.price}`} disabled />
+                                <input type="text" className="form-control" placeholder={`Rp ${new Intl.NumberFormat("id-ID").format(carDetailResult.price)}`} disabled />
                             </div>
                             <div className="col mb-3">
                                 <label className="form-label">Status</label>
@@ -113,6 +105,8 @@ const PackageDetail = () => {
                         </div>
                     </form>
                 </div>
+
+                {/*  */}
 
                 <div className="container pt-4">
                     <div className="row">
@@ -185,13 +179,13 @@ const PackageDetail = () => {
                                         <p className="fs-5 fw-bold text-start my-auto">Total</p>
                                     </div>
                                     <div className="col">
-                                        <p className="fs-5 fw-bold text-end my-auto">Rp {totalPrice}</p>
+                                        <p className="fs-5 fw-bold text-end my-auto">Rp {new Intl.NumberFormat("id-ID").format(totalPrice)}</p>
                                     </div>
                                 </div>
                                 <div className="row p-3">
                                     <div className="col">
-                                        <Link to="/payment">
-                                            <button className="btn btn-success w-100" disabled={numberOfDays ? false : true} onClick={(event) => handlePayment(event)}>
+                                        <Link to="/select-method">
+                                            <button type="submit" className="btn btn-success w-100" disabled={numberOfDays ? false : true} onClick={(event) => handlePayment(event)}>
                                                 Lanjutkan Pembayaran
                                             </button>
                                         </Link>

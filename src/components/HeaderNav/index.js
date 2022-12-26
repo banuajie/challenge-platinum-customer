@@ -1,8 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
 
 const HeaderNav = () => {
+    const location = useLocation();
+
+    const token = window.localStorage.getItem("Token");
+
     return (
         <>
             <nav className="navbar navbar-expand-lg sticky-top" style={{ backgroundColor: "#F1F3FF" }}>
@@ -18,29 +22,57 @@ const HeaderNav = () => {
                     <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
                         <ul className="navbar-nav gap-4">
                             <li className="nav-item">
-                                <a className="nav-link text-dark" href="#our-services">
+                                <a className="nav-link text-dark" href={location.pathname === "/" ? "#our-services" : "/"}>
                                     Our Services
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link text-dark" href="#why-us">
+                                <a className="nav-link text-dark" href={location.pathname === "/" ? "#why-us" : "/"}>
                                     Why Us
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link text-dark" href="#testimony">
+                                <a className="nav-link text-dark" href={location.pathname === "/" ? "#testimony" : "/"}>
                                     Testimonial
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link text-dark" href="#faq">
+                                <a className="nav-link text-dark" href={location.pathname === "/" ? "#faq" : "/"}>
                                     FAQ
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <Link to="/signin">
-                                    <button className="btn btn-success">Register</button>
-                                </Link>
+                                {!token && (
+                                    <Link to="/signin" state={location.pathname}>
+                                        <button className="btn btn-success">Register</button>
+                                    </Link>
+                                )}
+
+                                {location.pathname !== "/select-method" && location.pathname !== "/payment" && location.pathname !== "/ticket" && token && (
+                                    <Link to=".">
+                                        <button className="btn btn-success" onClick={() => window.localStorage.removeItem("Token")}>
+                                            Logout
+                                        </button>
+                                    </Link>
+                                )}
+
+                                {location.pathname === "/select-method" && token && (
+                                    <button className="btn btn-success" disabled>
+                                        Logout
+                                    </button>
+                                )}
+
+                                {location.pathname === "/payment" && token && (
+                                    <button className="btn btn-success" disabled>
+                                        Logout
+                                    </button>
+                                )}
+
+                                {location.pathname === "/ticket" && token && (
+                                    <button className="btn btn-success" disabled>
+                                        Logout
+                                    </button>
+                                )}
                             </li>
                         </ul>
                     </div>

@@ -13,7 +13,7 @@ const FilterCars = () => {
     const [filterCategory, setFilterCategory] = useState("");
     const [filterPrice, setFilterPrice] = useState("");
     const [minPrice, setMinPrice] = useState(0);
-    const [maxPrice, setMaxPrice] = useState(1000000);
+    const [maxPrice, setMaxPrice] = useState(10000000);
     const [saveFilter, setSaveFilter] = useState([]);
 
     useEffect(() => {
@@ -107,10 +107,10 @@ const FilterCars = () => {
                                                     setMaxPrice(600000);
                                                 } else if (event.target.value === "600000") {
                                                     setMinPrice(600000);
-                                                    setMaxPrice(1000000);
+                                                    setMaxPrice(10000000);
                                                 } else {
                                                     setMinPrice(0);
-                                                    setMaxPrice(1000000);
+                                                    setMaxPrice(10000000);
                                                 }
                                             }}
                                         >
@@ -150,7 +150,7 @@ const FilterCars = () => {
                                                 <img src={car.image} className="car-image card-img-top" alt="Car" />
                                                 <div className="card-body">
                                                     <p className="car-name card-text">{car.name}</p>
-                                                    <h5 className="car-price card-title">Rp {car.price} / hari</h5>
+                                                    <h5 className="car-price card-title">Rp {new Intl.NumberFormat("id-ID").format(car.price)} / hari</h5>
                                                     <p className="car-desc card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                                                     <div className="row ps-2 pe-2">
                                                         <Link to={`/cars/${car.id}`} className="ps-2 pe-2">

@@ -1,10 +1,15 @@
+import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CarDetail from "./pages/CarDetail";
 import LandingPage from "./pages/LandingPage";
 import SearchCar from "./pages/SearchCar";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import SelectMethod from "./pages/SelectMethod";
+import PrivateRoutes from "./route/PrivateRoutes";
+import NotFound from "./pages/NotFound";
 import Payment from "./pages/Payment";
+import Ticket from "./pages/Ticket";
 
 function App() {
     return (
@@ -16,7 +21,12 @@ function App() {
                     <Route path="/cars/:id" element={<CarDetail />} />
                     <Route path="/signin" element={<SignIn />} />
                     <Route path="/signup" element={<SignUp />} />
-                    <Route path="/payment" element={<Payment />} />
+                    <Route element={<PrivateRoutes />}>
+                        <Route path="/select-method" element={<SelectMethod />} />
+                        <Route path="/payment" element={<Payment />} />
+                        <Route path="/ticket" element={<Ticket />} />
+                    </Route>
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </BrowserRouter>
         </div>
