@@ -87,7 +87,7 @@ const Invoice = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col">
-                            <form className="form-invoice p-3 shadow-sm w-50 mx-auto">
+                            {/* <form className="form-invoice p-3 shadow-sm w-50 mx-auto">
                                 <div className="row">
                                     <div className="col align-self-center">
                                         <p className="text-invoice my-auto">Invoice</p>
@@ -110,7 +110,7 @@ const Invoice = () => {
                                 <div className="row">
                                     <div className="col"></div>
                                 </div>
-                            </form>
+                            </form> */}
                         </div>
                     </div>
                 </div>

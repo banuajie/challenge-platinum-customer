@@ -22,22 +22,22 @@ const HeaderNav = () => {
                     <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
                         <ul className="navbar-nav gap-4">
                             <li className="nav-item">
-                                <a className="nav-link text-dark" href="#our-services">
+                                <a className="nav-link text-dark" href={location.pathname === "/" ? "#our-services" : "/"}>
                                     Our Services
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link text-dark" href="#why-us">
+                                <a className="nav-link text-dark" href={location.pathname === "/" ? "#why-us" : "/"}>
                                     Why Us
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link text-dark" href="#testimony">
+                                <a className="nav-link text-dark" href={location.pathname === "/" ? "#testimony" : "/"}>
                                     Testimonial
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link text-dark" href="#faq">
+                                <a className="nav-link text-dark" href={location.pathname === "/" ? "#testimony" : "/"}>
                                     FAQ
                                 </a>
                             </li>
