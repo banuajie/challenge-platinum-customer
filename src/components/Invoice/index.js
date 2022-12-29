@@ -29,8 +29,6 @@ const Invoice = () => {
         }
     }, [getOrderResult]);
 
-    console.log(updateOrder);
-
     const handleDownload = (event) => {
         event.preventDefault();
 
